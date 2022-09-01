@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>golang on Mainroad</title>
-    <link>/tags/golang/</link>
+    <link>https://whuki.github.io/tags/golang/</link>
     <description>Recent content in golang on Mainroad</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://whuki.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Content Placeholder</title>
-      <link>/posts/demo/</link>
+      <link>https://whuki.github.io/posts/demo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/posts/demo/</guid>
+      <guid>https://whuki.github.io/posts/demo/</guid>
       <description></description>
     </item>
     

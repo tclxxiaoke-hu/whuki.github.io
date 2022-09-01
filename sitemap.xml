@@ -2,18 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/categories/</loc>
+    <loc>https://whuki.github.io/categories/</loc>
   </url><url>
-    <loc>/posts/demo/</loc>
+    <loc>https://whuki.github.io/posts/demo/</loc>
   </url><url>
-    <loc>/tags/golang/</loc>
+    <loc>https://whuki.github.io/tags/golang/</loc>
   </url><url>
-    <loc>/</loc>
+    <loc>https://whuki.github.io/</loc>
   </url><url>
-    <loc>/tags/mysql/</loc>
+    <loc>https://whuki.github.io/tags/mysql/</loc>
   </url><url>
-    <loc>/posts/</loc>
+    <loc>https://whuki.github.io/posts/</loc>
   </url><url>
-    <loc>/tags/</loc>
+    <loc>https://whuki.github.io/tags/</loc>
   </url>
 </urlset>
