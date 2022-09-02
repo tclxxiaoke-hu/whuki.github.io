@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>golang on Mason的个人博客</title>
+    <title>golang on Mason&#39;s Blog</title>
     <link>https://whuki.github.io/tags/golang/</link>
-    <description>Recent content in golang on Mason的个人博客</description>
+    <description>Recent content in golang on Mason&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language><atom:link href="https://whuki.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -12,7 +12,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://whuki.github.io/posts/demo/</guid>
-      <description></description>
+      <description>Linux 入门篇
+/ 根目录 boot 引导分区 系统启动使用一般 swap 交换分区 单独的一块分区作为内存使用 xfs 高性能日志文件系统 文件目录
+/bin =》/usr/bin 二进制目录 直接可以执行的常见命令 ,是指向 /usr目录下 /sbin 管理员执行的二进制 /lib /lib64 库目录 这些是系统使用的库 /usr 用户所需要级别的东西都放到这个目录 /boot 引导分区目录 /dev 设备目录 cpu、硬盘、鼠标等硬件设备文件 /etc 系统管理的配置文件 /home 普通用户的文件夹 /root 超级管理员的主目录 /opt 可选目录 第三方软件会安装到这个目录 /media u盘、光驱等可移动设备 /mnt 挂载目录 /proc 进程目录 系统相关 /run 临时目录 当前记录系统信息 /svr 系统服务相关 /sys 系统硬件相关信息 /tmp 临时目录 /var 可变目录 存放各种日志 vim
+一般模式 删除、复制、粘贴s
+编辑模式 输入i、a、o进行文本的编辑
+命令模式 :wq :q :q!
+u 撤退操作 ​ shift+^ 快速移动到行头部 shift+$ 快速移动到行尾 gg 快速移动到文件头部 G 快速移动到文件尾部 ​ [n] yy 复制该行 y$ 复制当前光标到结尾的内容 y^ 复制当前光标之前的内容 yw 复制该单词 ​ shift+X 删除之前的内容 p 复制到当前位置 [n] dd 删除该行 ​ I 在该行的最前面插入 A 在该行的最后插入 o 在当前行的下一行插入 O 在当前行的上一行插入 ​ :set nu 显示行号 /[内容] 查找值 :s/[内容]/[替换的内容] 仅替换当前行的内容 :%s/[内容]/[替换的内容]/g 全文替换 文件操作命令</description>
     </item>
     
   </channel>
