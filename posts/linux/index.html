@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Home - Mason&#39;s Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="linux基础知识">
+		<meta property="og:title" content="Home" />
+<meta property="og:description" content="linux基础知识" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whuki.github.io/posts/linux/" /><meta property="article:section" content="posts" />
+
+
+
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Mason&#39;s Blog" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Mason&#39;s Blog</div>
+					<div class="logo__tagline">态度决定高度，细节决定成败</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item menu__item--active">
+			<a class="menu__link" href="/posts/linux/">
+				
+				<span class="menu__text">Home</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Home</h1>
+			<p class="post__lead">Example lead - highlighted near the title</p>
+			<div class="post__meta meta"><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="category">基础知识</a>
+	</span>
+</div></div>
+		</header>
+		
+	<figure class="post__thumbnail thumbnail">
+		
+		<img class="thumbnail__image" src="/img/" alt="Home">
+		
+	</figure>
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h4 id="linux">Linux</h4>
+<p>入门篇</p>
+<ul>
+<li>/ 根目录</li>
+<li>boot  引导分区 系统启动使用一般</li>
+<li>swap 交换分区 单独的一块分区作为内存使用</li>
+<li>xfs 高性能日志文件系统</li>
+</ul>
+<p>文件目录</p>
+<ul>
+<li>/bin =》/usr/bin 二进制目录 直接可以执行的常见命令 ,是指向 /usr目录下</li>
+<li>/sbin 管理员执行的二进制</li>
+<li>/lib /lib64 库目录 这些是系统使用的库</li>
+<li>/usr 用户所需要级别的东西都放到这个目录</li>
+<li>/boot 引导分区目录</li>
+<li>/dev 设备目录  cpu、硬盘、鼠标等硬件设备文件</li>
+<li>/etc 系统管理的配置文件</li>
+<li>/home  普通用户的文件夹</li>
+<li>/root  超级管理员的主目录</li>
+<li>/opt 可选目录 第三方软件会安装到这个目录</li>
+<li>/media u盘、光驱等可移动设备</li>
+<li>/mnt 挂载目录</li>
+<li>/proc 进程目录 系统相关</li>
+<li>/run 临时目录 当前记录系统信息</li>
+<li>/svr 系统服务相关</li>
+<li>/sys 系统硬件相关信息</li>
+<li>/tmp 临时目录</li>
+<li>/var 可变目录 存放各种日志</li>
+</ul>
+<p>vim</p>
+<ul>
+<li>
+<p>一般模式 删除、复制、粘贴s</p>
+</li>
+<li>
+<p>编辑模式  输入i、a、o进行文本的编辑</p>
+</li>
+<li>
+<p>命令模式  :wq :q :q!</p>
+</li>
+<li>
+<ul>
+<li>u 撤退操作</li>
+<li>​</li>
+<li>shift+^ 快速移动到行头部</li>
+<li>shift+$ 快速移动到行尾</li>
+<li>gg 快速移动到文件头部</li>
+<li>G 快速移动到文件尾部</li>
+<li>​</li>
+<li>[n] yy 复制该行</li>
+<li>y$ 复制当前光标到结尾的内容</li>
+<li>y^ 复制当前光标之前的内容</li>
+<li>yw 复制该单词</li>
+<li>​</li>
+<li>shift+X 删除之前的内容</li>
+<li>p 复制到当前位置</li>
+<li>[n] dd 删除该行</li>
+<li>​</li>
+<li>I 在该行的最前面插入</li>
+<li>A 在该行的最后插入</li>
+<li>o 在当前行的下一行插入</li>
+<li>O 在当前行的上一行插入</li>
+<li>​</li>
+<li>:set nu 显示行号</li>
+<li>/[内容] 查找值</li>
+<li>:s/[内容]/[替换的内容]  仅替换当前行的内容</li>
+<li>:%s/[内容]/[替换的内容]/g 全文替换</li>
+</ul>
+</li>
+</ul>
+<p>文件操作命令</p>
+<ul>
+<li>less 查看大文件内容  <a href="http://c.biancheng.net/view/4004.html">http://c.biancheng.net/view/4004.html</a></li>
+<li>head -n 【行数】 文件名称 查看文件前n行的内容</li>
+<li>tail -n 【行数】 文件名称 查看倒数n行的内容</li>
+<li>tail -f 文件名称 查看当前文件最新追加的内容</li>
+</ul>
+<p>用户管理命令</p>
+<ul>
+<li>useradd 用户名 添加新用户</li>
+<li>useradd</li>
+</ul>
+<p>磁盘</p>
+<ul>
+<li>
+<p>du -sh 查看当前目录的大小</p>
+</li>
+<li>
+<p>df  -h 查看磁盘剩余空间</p>
+</li>
+<li>
+<p>free -h 查看内存占用情况</p>
+</li>
+<li>
+<p>lsblk -f 查看设备上挂载的大小</p>
+</li>
+<li>
+<p>fdisk 查看磁盘分区的情况</p>
+</li>
+<li>
+<ul>
+<li>fdisk -n  进行新磁盘的分区</li>
+</ul>
+</li>
+<li>
+<p>mkfs 磁盘分区格式化</p>
+</li>
+<li>
+<p>mount  【设备名称】 【目录名称】 将磁盘设备挂载到目录上</p>
+</li>
+</ul>
+<p>系统进程操作</p>
+<ul>
+<li>
+<p>ps aux | grep xxx</p>
+</li>
+<li>
+<p>ps -ef | grep xxx</p>
+</li>
+<li>
+<p>top  实时的监控信息</p>
+</li>
+<li>
+<ul>
+<li>-p 查看进程</li>
+<li>M 查看内存</li>
+</ul>
+</li>
+<li>
+<p>netstat -anp | grep 进程号 查看该进程网络信息</p>
+</li>
+<li>
+<p>netstat -nlp | grep 端口号  查看网络端口号占用情况</p>
+</li>
+</ul>
+<p>shell 编程</p>
+<ul>
+<li>
+<p>定义变量  变量名称=值  两个不能为空</p>
+</li>
+<li>
+<ul>
+<li>echo $变量名称  打印变量</li>
+<li>export 变量名称   设置变量为全局变量</li>
+<li>readonly 变量名称=值 只读变量</li>
+<li>unset 变量名称 撤销变量</li>
+<li>$【数值】 终端输入的变量</li>
+<li>$# 获取输入变量的个数</li>
+<li>$* 获取命令行中所有的参数，并把参数看作一个整体</li>
+<li>$@  命令行中所有的参数</li>
+<li>$?  查看脚本是否执行成功 0 表示成功 其它数值表示出错</li>
+</ul>
+</li>
+<li>
+<p>运算符</p>
+</li>
+<li>
+<ul>
+<li>expr 运算</li>
+<li>$[运算式]</li>
+</ul>
+</li>
+<li>
+<p>条件判断</p>
+</li>
+<li>
+<ul>
+<li>test 【判断式】  0 表示成功 1 表示失败</li>
+<li>[ 判断式 ] 判断式前后一定要有空格</li>
+<li>比较 lt gt ge &hellip;</li>
+<li>if [条件] ; then</li>
+<li>程序</li>
+<li>fi</li>
+</ul>
+</li>
+</ul>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/golang/" rel="tag">golang</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="Mason avatar" src="/img/avatar.png" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About Mason</span>
+	</div>
+	<div class="authorbox__description">
+		经验不足的程序员，略懂golang。
+	</div>
+</div>
+
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://whuki.github.io">
+	</form>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 Mason&#39;s Blog.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

@@ -8,10 +8,10 @@
     <language>zh-cn</language><atom:link href="https://whuki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Home</title>
-      <link>https://whuki.github.io/posts/demo/</link>
+      <link>https://whuki.github.io/posts/linux/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://whuki.github.io/posts/demo/</guid>
+      <guid>https://whuki.github.io/posts/linux/</guid>
       <description>Linux 入门篇
 / 根目录 boot 引导分区 系统启动使用一般 swap 交换分区 单独的一块分区作为内存使用 xfs 高性能日志文件系统 文件目录
 /bin =》/usr/bin 二进制目录 直接可以执行的常见命令 ,是指向 /usr目录下 /sbin 管理员执行的二进制 /lib /lib64 库目录 这些是系统使用的库 /usr 用户所需要级别的东西都放到这个目录 /boot 引导分区目录 /dev 设备目录 cpu、硬盘、鼠标等硬件设备文件 /etc 系统管理的配置文件 /home 普通用户的文件夹 /root 超级管理员的主目录 /opt 可选目录 第三方软件会安装到这个目录 /media u盘、光驱等可移动设备 /mnt 挂载目录 /proc 进程目录 系统相关 /run 临时目录 当前记录系统信息 /svr 系统服务相关 /sys 系统硬件相关信息 /tmp 临时目录 /var 可变目录 存放各种日志 vim
