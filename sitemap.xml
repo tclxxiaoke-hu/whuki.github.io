@@ -2,13 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://whuki.github.io/tags/another-test/</loc>
-  </url><url>
     <loc>https://whuki.github.io/categories/</loc>
   </url><url>
     <loc>https://whuki.github.io/categories/category-1/</loc>
   </url><url>
     <loc>https://whuki.github.io/categories/category-2/</loc>
+  </url><url>
+    <loc>https://whuki.github.io/tags/golang/</loc>
   </url><url>
     <loc>https://whuki.github.io/posts/demo/</loc>
   </url><url>
@@ -17,7 +17,5 @@
     <loc>https://whuki.github.io/posts/</loc>
   </url><url>
     <loc>https://whuki.github.io/tags/</loc>
-  </url><url>
-    <loc>https://whuki.github.io/tags/test/</loc>
   </url>
 </urlset>
