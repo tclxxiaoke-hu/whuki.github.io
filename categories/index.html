@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 
 	<link rel="stylesheet" href="/css/style.css">
-	
+	<link rel="stylesheet" href="/css/custom.css">
 	<link rel="alternate" type="application/rss+xml" href="/categories/index.xml" title="Mason's Blog">
 
 	<link rel="shortcut icon" href="/favicon.ico">
@@ -30,9 +30,11 @@
 		<header class="header">
 	<div class="container header__container">
 		
-	<div class="logo">
+	<div class="logo logo--mixed">
 		<a class="logo__link" href="/" title="Mason&#39;s Blog" rel="home">
-			<div class="logo__item logo__text">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
 					<div class="logo__title">Mason&#39;s Blog</div>
 					<div class="logo__tagline">态度决定高度，细节决定成败</div>
 				</div>
@@ -45,9 +47,9 @@
 	</button>
 	<ul class="menu__list">
 		<li class="menu__item">
-			<a class="menu__link" href="/posts/linux/">
+			<a class="menu__link" href="/posts/main/">
 				
-				<span class="menu__text">linux基础知识</span>
+				<span class="menu__text">home</span>
 				
 			</a>
 		</li>
@@ -102,6 +104,7 @@
 <div class="widget-taglist widget">
 	<h4 class="widget__title">Tags</h4>
 	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/linux/" title="linux">linux</a>
 	</div>
 </div>
@@ -118,5 +121,5 @@
 </footer>
 	</div>
 <script async defer src="/js/menu.js"></script>
-</body>
+<script src="/js/custom.js"></script></body>
 </html>

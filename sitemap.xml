@@ -2,11 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://whuki.github.io/posts/go_error/</loc>
+  </url><url>
+    <loc>https://whuki.github.io/posts/linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</loc>
+  </url><url>
     <loc>https://whuki.github.io/categories/</loc>
   </url><url>
-    <loc>https://whuki.github.io/tags/linux/</loc>
+    <loc>https://whuki.github.io/tags/golang/</loc>
   </url><url>
-    <loc>https://whuki.github.io/posts/linux/</loc>
+    <loc>https://whuki.github.io/posts/main/</loc>
+  </url><url>
+    <loc>https://whuki.github.io/tags/linux/</loc>
   </url><url>
     <loc>https://whuki.github.io/</loc>
   </url><url>
