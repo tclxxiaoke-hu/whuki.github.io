@@ -6,14 +6,14 @@
     <description>Recent content in golang on Mason&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 25 Aug 2022 14:00:00 +0000</lastBuildDate><atom:link href="https://whuki.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 03 Sep 2022 18:00:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>golang基础知识</title>
-      <link>https://whuki.github.io/posts/go_error/</link>
-      <pubDate>Thu, 25 Aug 2022 14:00:00 +0000</pubDate>
+      <title>golang拷贝</title>
+      <link>https://whuki.github.io/posts/golang_copy/</link>
+      <pubDate>Sat, 03 Sep 2022 18:00:00 +0800</pubDate>
       
-      <guid>https://whuki.github.io/posts/go_error/</guid>
-      <description>golang 错误处理 请看下图:</description>
+      <guid>https://whuki.github.io/posts/golang_copy/</guid>
+      <description>浅拷贝 浅拷贝是指对地址的拷贝。 浅拷贝复制的是数据的指针地址，当数据发生变化的时候，被拷贝的数据也跟着发生变化。 golang引用类型的都是浅拷</description>
     </item>
     
   </channel>

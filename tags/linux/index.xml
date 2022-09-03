@@ -6,11 +6,11 @@
     <description>Recent content in linux on Mason&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 25 Aug 2022 14:00:00 +0000</lastBuildDate><atom:link href="https://whuki.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 03 Sep 2022 18:00:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>linux基础知识</title>
       <link>https://whuki.github.io/posts/linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link>
-      <pubDate>Thu, 25 Aug 2022 14:00:00 +0000</pubDate>
+      <pubDate>Sat, 03 Sep 2022 18:00:00 +0800</pubDate>
       
       <guid>https://whuki.github.io/posts/linux%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid>
       <description>Linux 入门篇 / 根目录 boot 引导分区 系统启动使用一般 swap 交换分区 单独的一块分区作为内存使用 xfs 高性能日志文件系统 文件目录 /bin =》/usr/bin 二进制目录 直</description>
