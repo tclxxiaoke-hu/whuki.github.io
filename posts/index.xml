@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Mason&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 03 Sep 2022 18:00:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 05 Sep 2022 21:30:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang错误处理(上)</title>
+      <link>https://whuki.github.io/posts/go_error_1/</link>
+      <pubDate>Mon, 05 Sep 2022 21:30:00 +0800</pubDate>
+      
+      <guid>https://whuki.github.io/posts/go_error_1/</guid>
+      <description>Q: why golang的错误处理为什么这么设计？ 面向对象语言如java、c# 采用抛出异常的方式处理错误，这导致不管是什么样的错误都采用这种方式，所</description>
+    </item>
+    
     <item>
       <title>golang拷贝</title>
       <link>https://whuki.github.io/posts/golang_copy/</link>
