@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Mason&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 05 Sep 2022 21:30:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Sep 2022 21:00:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang错误处理(下)</title>
+      <link>https://whuki.github.io/posts/go_error_2/</link>
+      <pubDate>Tue, 06 Sep 2022 21:00:00 +0800</pubDate>
+      
+      <guid>https://whuki.github.io/posts/go_error_2/</guid>
+      <description>错误处理优化 bufio.scan 在go的程序中常常会出现很多if err 代码，下面是两种减少这种代码的处理方式。 // 统计文件行数 func count(r io.Reader) (int, error) { var ( br = bufio.NewReader(r) lines int err error ) for { //</description>
+    </item>
+    
     <item>
       <title>golang错误处理(上)</title>
       <link>https://whuki.github.io/posts/go_error_1/</link>
