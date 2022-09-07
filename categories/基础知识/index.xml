@@ -13,7 +13,7 @@
       <pubDate>Wed, 07 Sep 2022 22:00:00 +0800</pubDate>
       
       <guid>https://whuki.github.io/posts/golang%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid>
-      <description>请对创建的groutine负责 本篇作为并发编程学习的开篇，依次会讲解golang并发编程的各个使用方式以及各种常见的坑。 创建goroutin</description>
+      <description>请对创建的goroutine负责 本篇作为并发编程学习的开篇，依次会讲解golang并发编程的各个使用方式以及各种常见的坑。 创建gorouti</description>
     </item>
     
     <item>
