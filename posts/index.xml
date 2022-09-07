@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Mason&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 06 Sep 2022 21:00:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 07 Sep 2022 22:00:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>go并发编程(一)</title>
+      <link>https://whuki.github.io/posts/golang%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link>
+      <pubDate>Wed, 07 Sep 2022 22:00:00 +0800</pubDate>
+      
+      <guid>https://whuki.github.io/posts/golang%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid>
+      <description>请对创建的groutine负责 本篇作为并发编程学习的开篇，依次会讲解golang并发编程的各个使用方式以及各种常见的坑。 创建goroutin</description>
+    </item>
+    
     <item>
       <title>golang错误处理(下)</title>
       <link>https://whuki.github.io/posts/go_error_2/</link>
