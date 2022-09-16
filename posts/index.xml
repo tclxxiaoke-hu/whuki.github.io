@@ -9,10 +9,10 @@
     <lastBuildDate>Wed, 14 Sep 2022 22:00:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>golang并发编程(二)</title>
-      <link>https://whuki.github.io/posts/golang%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link>
+      <link>https://whuki.github.io/posts/goroutine_2/</link>
       <pubDate>Wed, 14 Sep 2022 22:00:00 +0800</pubDate>
       
-      <guid>https://whuki.github.io/posts/golang%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid>
+      <guid>https://whuki.github.io/posts/goroutine_2/</guid>
       <description>Go内存模型 请看下面输出什么？ package main var a, b int func f() { a = 1 b = 2 } func g() { print(b) print(a) } func main() { go f() g() } 将这两个函数分为两个步骤: 可能出现的执行情况： 执行顺</description>
     </item>
     

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>golang并发编程(二) - Mason&#39;s Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="golang并发编程(二)" />
+<meta property="og:description" content="Go内存模型 请看下面输出什么？ package main var a, b int func f() { a = 1 b = 2 } func g() { print(b) print(a) } func main() { go f() g() } 将这两个函数分为两个步骤: 可能出现的执行情况： 执行顺" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whuki.github.io/posts/goroutine_2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-09-14T22:00:00+08:00" />
+<meta property="article:modified_time" content="2022-09-14T22:00:00+08:00" />
+
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="Mason&#39;s Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">Mason&#39;s Blog</div>
+					<div class="logo__tagline">忍人所不忍，能人所不能</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/tags">
+				
+				<span class="menu__text">首页</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">golang并发编程(二)</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">Mason</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-09-14T22:00:00&#43;08:00">2022-09-14 22:00</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="category">基础知识</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h4 id="go内存模型">Go内存模型</h4>
+<p>请看下面输出什么？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">f</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">a</span> = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">b</span> = <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">g</span>() {
+</span></span><span style="display:flex;"><span>	print(<span style="color:#a6e22e">b</span>)
+</span></span><span style="display:flex;"><span>	print(<span style="color:#a6e22e">a</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">f</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">g</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>将这两个函数分为两个步骤:</p>
+<p><img src="/images/go/func.png" alt=""></p>
+<p>可能出现的执行情况：</p>
+<ul>
+<li>执行顺序: 1 - 2 - 3 - 4, f 先执行, g 后执行, 输出 <code>2 1</code></li>
+<li>执行顺序: 3 - 4 - 1 - 2, g 先执行，f 后执行，输出 <code>0 0</code></li>
+<li>执行顺序: 1 - 3 - 4 - 2, <code>f</code>  先执行一部分, 然后 <code>g</code>  执行, 输出 <code>0 1</code></li>
+</ul>
+<p>除了这几种情况还会出现 <code>2 0</code> 的情况</p>
+<p>cpu为了提高执行效率在一定程度上将代码的执行顺序打乱。</p>
+<h5 id="编译器重排">编译器重排</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">X</span> = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#a6e22e">in</span> <span style="color:#66d9ef">range</span>(<span style="color:#ae81ff">100</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">X</span> = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print</span> <span style="color:#a6e22e">X</span>
+</span></span></code></pre></div><p>这段代码中，X被重复赋值了100次，但是编译器会优化为：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">X</span> = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#a6e22e">in</span> <span style="color:#66d9ef">range</span>(<span style="color:#ae81ff">100</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print</span> <span style="color:#a6e22e">X</span>
+</span></span></code></pre></div><p>这样程序的执行结果不会改变，但是减少了赋值100次的操作，但是如果此时我们对X进行赋值X=0，那么这个输出就变的不可预知了，所有当我们存在多个grountine时要进行序列话。</p>
+<h5 id="机器字">机器字</h5>
+<p>对大于单个机器字的值进行读取和写入，其表现如同以不确定的顺序对多个机器字大小的值进行操作。要理解这个我们首先要理解什么是机器字。
+我们现在常见的还有 32 位系统和 64 位的系统，cpu 在执行一条指令的时候对于单个机器字长的的数据的写入可以保证是原子的，对于 32 位的就是 4 个字节，对于 64 位的就是 8 个字节，对于在 32 位情况下去写入一个 8 字节的数据时就需要执行两次写入操作，这两次操作之间就没有原子性，那就可能出现先写入后半部分的数据再写入前半部分，或者是写入了一半数据然后写入失败的情况。
+也就是说虽然有时候我们看着仅仅只做了一次写入但是还是会有并发问题，因为它本身不是原子的。</p>
+<h5 id="内存重排">内存重排</h5>
+<p>在上面我们讲到了编译器重排，以及在最开始的例子中我们提到了可能会存在 <code>2 0</code>  这个答案，接下来我们就来看看为什么。如果大家购买电脑的时候有去对比 cpu 的话应该可以看到，每个 cpu 都会写一下一级缓存，二级缓存，三级缓存的大小，这个缓存就是这里的一个关键点，一般而言，越往下缓存的大小越大速度越慢，这是 cpu 为了提高执行速度做的缓存体系，就像我们平时在应用当中引入 redis 作为缓存类似，都是为了加速。同时这就会带来一些数据不一致的问题。</p>
+<p><img src="/images/go/memory_sort.png" alt=""></p>
+<p><strong>如上图所示：</strong></p>
+<ol>
+<li>C1 执行 a = 1 将 store buffer 中 a 的值写为 1</li>
+<li>C1 执行 b = 2 将 store buffer 中 b 的值写为 2, 然后由于某种原因将 b 的值写入到了内存中</li>
+<li>C2 去读取 b 的值，发现缓存中没有，就去内存中读，这时候 print 出来 2</li>
+<li>C2 去读取 a 的值，发现缓存中没有，就去内存中读，这时候 print 出来 0</li>
+</ol>
+<p>了解到这里之后可能会有一些疑问，既然会存在这种不确定性，我们有没有什么办法去保证一致呢？CPU 的一致性具体又是怎么回事？
+保证一致从程序上来讲我们必须使用同步语义的工具确保一致，如果深入到底层的话就是使用 cpu 提供的内存屏障命令，保证所有对内存的操作都必须要“扩散”到 memory 之后才能继续执行其他对 memory 的操作。
+CPU 一致性的原理建议看一下 MSI(E)协议的实现，我在参考文献中列出的最后两篇文章讲的已经比较通俗易懂了，在本文就不再叙述</p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/golang/" rel="tag">golang</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+	<h5 id="wc" style="font-size: 1rem;text-align: center;">1200 字|阅读~ 3 min|本文总阅读<span id="busuanzi_value_page_pv"></span>次</h5>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="Mason avatar" src="/img/avatar.png" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About Mason</span>
+	</div>
+	<div class="authorbox__description">
+		经验不足的程序员，略懂golang。
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/golang%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">golang并发编程(一)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://whuki.github.io">
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/goroutine_2/">golang并发编程(二)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">golang并发编程(一)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/go_error_2/">golang错误处理(下)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/go_error_1/">golang错误处理(上)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang_copy/">golang拷贝</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang (5)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/linux/" title="linux">linux (1)</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<script src="https://utteranc.es/client.js"
+			repo="WHuKi/whuki.github.io"
+			issue-term="title"
+			theme="github-light"
+			crossorigin="anonymous"
+			async>
+	</script>
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 Mason&#39;s Blog.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
