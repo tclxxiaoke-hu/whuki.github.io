@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>redis缓存穿透、击穿、雪崩 - Mason&#39;s Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="redis缓存穿透、击穿、雪崩" />
+<meta property="og:description" content="缓存穿透、击穿、雪崩 1.缓存穿透 缓存穿透指缓存和数据库中数据都不存在，这样的缓存永久不存在，最终这些请求全部打到数据库中。 解决方案 1.缓存控" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whuki.github.io/posts/redis_1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-16T11:00:00+08:00" />
+<meta property="article:modified_time" content="2022-10-16T11:00:00+08:00" />
+
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="Mason&#39;s Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">Mason&#39;s Blog</div>
+					<div class="logo__tagline">忍人所不忍，能人所不能</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/tags">
+				
+				<span class="menu__text">首页</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">redis缓存穿透、击穿、雪崩</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">Mason</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2022-10-16T11:00:00&#43;08:00">2022-10-16 11:00</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="category">基础知识</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#缓存穿透击穿雪崩">缓存穿透、击穿、雪崩</a>
+      <ul>
+        <li><a href="#1缓存穿透">1.缓存穿透</a></li>
+        <li><a href="#2缓存击穿">2.缓存击穿</a></li>
+        <li><a href="#3缓存雪崩">3.缓存雪崩</a></li>
+        <li><a href="#4主动方案">4.主动方案</a></li>
+        <li><a href="#warn">Warn</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h2 id="缓存穿透击穿雪崩">缓存穿透、击穿、雪崩</h2>
+<h3 id="1缓存穿透">1.缓存穿透</h3>
+<p>缓存穿透指缓存和数据库中数据都不存在，这样的缓存永久不存在，最终这些请求全部打到数据库中。</p>
+<h5 id="解决方案">解决方案</h5>
+<ul>
+<li>1.缓存控对象
+<ul>
+<li>在请求数据库时，如果里面的值不存在，将null值更新到redis中。</li>
+<li>这种操作维护简单，但是有额外的内存消耗，可能造成短期的数据不一致。</li>
+</ul>
+</li>
+<li>2.布隆过滤器
+<ul>
+<li>在客户端和redis之间加入了布隆过滤。</li>
+<li>当请求的时候先去请求布隆过滤器，看这个对象是否存在，不存在直接返回，存在才会向redis中查询。</li>
+<li>优点：内存占用非常的小，没有多余的key。</li>
+<li>缺点：实现复杂，存在误判的可能性。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2缓存击穿">2.缓存击穿</h3>
+<p>也称为热点key问题，就是一个被<strong>高并发访问</strong>并且<strong>缓存重建业务较复杂</strong>的key突然失效了，无数的请求访问瞬间会给数据库带来巨大的压力冲击。</p>
+<h5 id="解决方案-1">解决方案</h5>
+<ul>
+<li>1.互斥锁(redis分布式锁)</li>
+<li>2.逻辑过期（不使用redis的过期机制，只是在redis值当中设置逻辑的过期时间）</li>
+</ul>
+<h3 id="3缓存雪崩">3.缓存雪崩</h3>
+<p>在同一时段内有大量的缓存Key同时失效或者redis服务宕机，导致大量请求打到数据库，带来巨大压力。</p>
+<h5 id="解决方案-2">解决方案</h5>
+<ul>
+<li>1.给不同key的ttl添加不同的随机值</li>
+<li>2.利用redis集群提高服务的可用性</li>
+<li>3.给缓存业务添加降级限流策略</li>
+<li>4.添加多级缓存</li>
+</ul>
+<h3 id="4主动方案">4.主动方案</h3>
+<ul>
+<li>增加id的复杂度，避免被猜测到id的规律。</li>
+<li>做好数据的格式校验。</li>
+<li>加强用户权限校验。</li>
+<li>做好热点参数的限流。</li>
+</ul>
+<h3 id="warn">Warn</h3>
+<p>以上遇到的几个问题以及解决方案都是给自己一个思路，当实现的时候再去处理细节。</p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/redis/" rel="tag">redis</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+	<h5 id="wc" style="font-size: 1rem;text-align: center;">700 字|阅读~ 2 min|本文总阅读<span id="busuanzi_value_page_pv"></span>次</h5>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="Mason avatar" src="/img/avatar.png" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About Mason</span>
+	</div>
+	<div class="authorbox__description">
+		经验不足的程序员，略懂golang。
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/goroutine_2/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">golang并发编程(二)</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://whuki.github.io">
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/redis_1/">redis缓存穿透、击穿、雪崩</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/goroutine_2/">golang并发编程(二)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">golang并发编程(一)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/go_error_2/">golang错误处理(下)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/go_error_1/">golang错误处理(上)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang (5)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/linux/" title="linux">linux (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/redis/" title="redis">redis (1)</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<script src="https://utteranc.es/client.js"
+			repo="WHuKi/whuki.github.io"
+			issue-term="title"
+			theme="github-light"
+			crossorigin="anonymous"
+			async>
+	</script>
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2022 Mason&#39;s Blog.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>

@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Mason&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 14 Sep 2022 22:00:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 Oct 2022 11:00:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>redis缓存穿透、击穿、雪崩</title>
+      <link>https://whuki.github.io/posts/redis_1/</link>
+      <pubDate>Sun, 16 Oct 2022 11:00:00 +0800</pubDate>
+      
+      <guid>https://whuki.github.io/posts/redis_1/</guid>
+      <description>缓存穿透、击穿、雪崩 1.缓存穿透 缓存穿透指缓存和数据库中数据都不存在，这样的缓存永久不存在，最终这些请求全部打到数据库中。 解决方案 1.缓存控</description>
+    </item>
+    
     <item>
       <title>golang并发编程(二)</title>
       <link>https://whuki.github.io/posts/goroutine_2/</link>
