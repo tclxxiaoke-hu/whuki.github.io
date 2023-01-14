@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>分布式 on Mason&#39;s Blog</title>
+    <link>https://whuki.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/</link>
+    <description>Recent content in 分布式 on Mason&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 14 Jan 2023 13:30:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/tags/%E5%88%86%E5%B8%83%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>分布式-CAP</title>
+      <link>https://whuki.github.io/posts/distributed_1/</link>
+      <pubDate>Sat, 14 Jan 2023 13:30:00 +0800</pubDate>
+      
+      <guid>https://whuki.github.io/posts/distributed_1/</guid>
+      <description>Q: CAP解决了什么？ 问题由来，由于互联网的发展，用户数据的增多，在同一时间登录系统的用户数以亿计，单体的应用不能负载此用户容量，由此产生了分</description>
+    </item>
+    
+  </channel>
+</rss>

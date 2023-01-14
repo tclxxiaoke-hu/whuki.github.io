@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>分布式-CAP - Mason&#39;s Blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+		<meta property="og:title" content="分布式-CAP" />
+<meta property="og:description" content="Q: CAP解决了什么？ 问题由来，由于互联网的发展，用户数据的增多，在同一时间登录系统的用户数以亿计，单体的应用不能负载此用户容量，由此产生了分" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whuki.github.io/posts/distributed_1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-14T13:30:00+08:00" />
+<meta property="article:modified_time" content="2023-01-14T13:30:00+08:00" />
+
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="Mason&#39;s Blog" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/placeholder.png">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">Mason&#39;s Blog</div>
+					<div class="logo__tagline">忍人所不忍，能人所不能</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/tags">
+				
+				<span class="menu__text">首页</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">分布式-CAP</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">Mason</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-01-14T13:30:00&#43;08:00">2023-01-14 13:30</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="category">基础知识</a>
+	</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Page content</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+        <li><a href="#1概念">1、概念</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<h4 id="q-cap解决了什么">Q: CAP解决了什么？</h4>
+<p>问题由来，由于互联网的发展，用户数据的增多，在同一时间登录系统的用户数以亿计，单体的应用不能负载此用户容量，由此产生了分拆功能的需求，比如：一个淘宝首页的查询，在同一时间有一亿人访问，单体的应用肯定得崩溃呀。这样，就把后台的查询功能分散到1千台机器提供的服务，这样就分摊了压力。现实的情况，可以理解为有一座桥在10分钟通过十万人，肯定通不过呀，就再造1000坐桥，这样就分摊了压力。</p>
+<h3 id="1概念">1、概念</h3>
+<p>CAP原则又称CAP定理，指的是在一个分布式系统中，一致性（Consistency）、可用性（Availability）、分区容错性（Partition tolerance）。CAP 原则指的是，这三个要素最多只能同时实现两点，不可能三者兼顾。</p>
+<p><strong>2、分析</strong></p>
+<p><strong>2.1 一致性（C-Consistency）</strong>：</p>
+<ul>
+<li>
+<p>在分布式系统中的所有数据备份，在同一时刻是否同样的值。（等同于所有节点访问同一份最新的数据副本）</p>
+</li>
+<li>
+<p>从客户端角度来看，一致性主要指多个用户并发访问时更新的数据如何被其他用户获取的问题；</p>
+</li>
+<li>
+<p>从服务端来看，一致性则是用户进行数据更新时如何将数据复制到整个系统，以保证数据的一致。</p>
+</li>
+<li>
+<p>对于一致性，一致的程度不同大体可以分为强、弱、最终一致性三类。</p>
+<p>1）强一致性 比如，1000座桥，桥1通过了100人，桥2通过了50人，那么，就得强制同步通知其他桥已经通过了150人，保持数据的统一。</p>
+<p>2）弱一致性 比如，桥1通过了100人，桥2通过了50人，其他桥并不知道所有桥通过了多少人。</p>
+<p>3）最终一致性 比如，桥1通过了100，桥2通过了50人，过10秒钟才通知其他桥，通过了150人，也最终保持了数据的统一。</p>
+</li>
+</ul>
+<p><strong>2.2 可用性（A-Availability）</strong></p>
+<ul>
+<li>保证每个请求不管成功或者失败都有响应。</li>
+<li>好的可用性主要是指系统能够很好地为用户服务，不出现用户操作失败或者访问超时等用户体验不好的情况。在通常情况下，可用性与分布式数据冗余、<a href="https://cloud.tencent.com/product/clb?from=10680">负载均衡</a>等有着很大的关联。</li>
+</ul>
+<p><strong>2.3 分区容错性（P-Partition tolerance）</strong></p>
+<ul>
+<li>系统中任意信息的丢失或失败不会影响系统的继续运作。</li>
+<li>分布式系统在遇到某节点或网络分区故障的时候，仍然能够对外提供满足一致性和可用性的服务。</li>
+<li>分区容错性和扩展性紧密相关。在分布式应用中，可能因为一些分布式的原因导致系统无法正常运转。分区容错性高指在部分节点故障或出现丢包的情况下，集群系统仍然能提供服务，完成数据的访问。分区容错可视为在系统中采用多副本策略。</li>
+<li><strong>CAP原则的精髓就是要么AP，要么CP，CA，不存在CAP。</strong></li>
+<li><strong>CA</strong>      如果不要求 Partition Tolerance，即不允许分区，则强一致性和可用性是可以保证的。其实分区是始终存在的问题，因此 CA 的分布式系统更多的是允许分区后各子系统依然保持CA。</li>
+<li><strong>CP</strong>      如果不要求可用性，相当于每个请求都需要在各<a href="https://cloud.tencent.com/product/cvm?from=10680">服务器</a>之间强一致，而分区容错性会导致同步时间无限延长，如此 CP 也是可以保证的。很多传统的数据库<a href="https://cloud.tencent.com/product/dtf?from=10680">分布式事务</a>都属于这种模式。</li>
+<li><strong>AP</strong>      如果要可用性高并允许分区，则需放弃一致性。一旦分区发生，节点之间可能会失去联系，为了实现高可用，每个节点只能用本地数据提供服务，而这样会导致全局数据的不一致性。</li>
+</ul>
+<p><strong>3、总结</strong>      在实践中，可根据实际情况进行权衡，或者在软件层面提供配置方式，由用户决定如何选择 CAP 策略。      CAP 理论可用在不同的层面，可以根据 CAP 原理定制局部的设计策略，例如，在分布式系统中，每个节点自身的数据是能保证 CA 的，但在整体上又要兼顾 AP 或 CP。</p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag">分布式</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+	<h5 id="wc" style="font-size: 1rem;text-align: center;">1500 字|阅读~ 3 min|本文总阅读<span id="busuanzi_value_page_pv"></span>次</h5>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="Mason avatar" src="/img/avatar.png" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About Mason</span>
+	</div>
+	<div class="authorbox__description">
+		经验不足的程序员，略懂golang。
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/posts/redis_1/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">redis缓存穿透、击穿、雪崩</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH…" value="" name="q" aria-label="SEARCH…">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://whuki.github.io">
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/posts/distributed_1/">分布式-CAP</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/redis_1/">redis缓存穿透、击穿、雪崩</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/goroutine_2/">golang并发编程(二)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/golang%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">golang并发编程(一)</a></li>
+			<li class="widget__item"><a class="widget__link" href="/posts/go_error_2/">golang错误处理(下)</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang (5)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/linux/" title="linux">linux (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/redis/" title="redis">redis (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" title="分布式">分布式 (1)</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<script src="https://utteranc.es/client.js"
+			repo="WHuKi/whuki.github.io"
+			issue-term="title"
+			theme="github-light"
+			crossorigin="anonymous"
+			async>
+	</script>
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2023 Mason&#39;s Blog.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+<script src="/js/custom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
+</body>
+</html>
