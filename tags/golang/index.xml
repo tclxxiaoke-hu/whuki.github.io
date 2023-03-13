@@ -6,7 +6,16 @@
     <description>Recent content in golang on Mason&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 14 Sep 2022 22:00:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 14 Jan 2023 13:30:00 +0800</lastBuildDate><atom:link href="https://whuki.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang内存分析(上)</title>
+      <link>https://whuki.github.io/posts/go_pprof_1/</link>
+      <pubDate>Sat, 14 Jan 2023 13:30:00 +0800</pubDate>
+      
+      <guid>https://whuki.github.io/posts/go_pprof_1/</guid>
+      <description>Golang内存泄漏（总揽篇） 起因 2023年3月10左右公司服务出现了很频繁的宕机情况，原因查找刻不容缓（还是领导让去搞的，嘿嘿），因此就开</description>
+    </item>
+    
     <item>
       <title>golang并发编程(二)</title>
       <link>https://whuki.github.io/posts/goroutine_2/</link>
@@ -50,6 +59,15 @@
       
       <guid>https://whuki.github.io/posts/golang_copy/</guid>
       <description>浅拷贝 浅拷贝是指对地址的拷贝。 浅拷贝复制的是数据的指针地址，当数据发生变化的时候，被拷贝的数据也跟着发生变化。 golang引用类型的都是浅拷</description>
+    </item>
+    
+    <item>
+      <title>golang基础知识</title>
+      <link>https://whuki.github.io/posts/go_error/</link>
+      <pubDate>Thu, 25 Aug 2022 14:00:00 +0000</pubDate>
+      
+      <guid>https://whuki.github.io/posts/go_error/</guid>
+      <description>golang 错误处理</description>
     </item>
     
   </channel>
